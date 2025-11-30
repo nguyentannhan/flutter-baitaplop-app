@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'pages/home_page.dart';
 import 'pages/user_profile.dart';
+import 'pages/map_page.dart';
 
 class DashboardPage extends StatefulWidget {
   final bool showSuccessSnack;
@@ -19,11 +21,11 @@ class _DashboardPageState extends State<DashboardPage> {
   void initState() {
     super.initState();
 
-    screens = const [
+    screens = [
       HomePage(),
-      Center(child: Text('Tìm kiếm', style: TextStyle(fontSize: 20))),
-      Center(child: Text('Tin nhắn', style: TextStyle(fontSize: 20))),
-      ProfilePage(),
+      const Center(child: Text('Tìm kiếm', style: TextStyle(fontSize: 20))),
+      const Center(child: Text('Tin nhắn', style: TextStyle(fontSize: 20))),
+      const ProfilePage(),
     ];
 
     if (widget.showSuccessSnack) {
@@ -76,8 +78,9 @@ class _DashboardPageState extends State<DashboardPage> {
         backgroundColor: Colors.blue,
         elevation: 4,
         onPressed: () {
+          Get.to(() => const MapPage());
         },
-        child: const Icon(Icons.add, size: 32),
+        child: const Icon(Icons.map, size: 32),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
 
@@ -96,12 +99,13 @@ class _DashboardPageState extends State<DashboardPage> {
                 Expanded(
                   child: InkWell(
                     onTap: () {
+                      Get.to(() => const MapPage());
                     },
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: const [
                         SizedBox(height: 4),
-                        Icon(Icons.add, color: Colors.transparent, size: 24),
+                        Icon(Icons.map, color: Colors.transparent, size: 24),
                         SizedBox(height: 2),
                       ],
                     ),

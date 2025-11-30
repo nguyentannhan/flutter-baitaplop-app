@@ -1,7 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import '../controllers/user_controller.dart';
+import '../controllers/counter_controller.dart';
 
 class HomePage extends StatelessWidget {
-  const HomePage({super.key});
+  HomePage({super.key});
+
+  final CounterController counter = Get.put(CounterController());
+  final UserController user = Get.find<UserController>();
 
   @override
   Widget build(BuildContext context) {
@@ -9,12 +15,57 @@ class HomePage extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         const Padding(
-          padding: EdgeInsets.fromLTRB(16, 16, 16, 8),
+          padding: EdgeInsets.fromLTRB(16, 16, 16, 4),
           child: Text(
-            "Trang chủ",
+            'Trang chủ',
             style: TextStyle(
               fontSize: 22,
               fontWeight: FontWeight.w600,
+            ),
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.fromLTRB(16, 0, 16, 8),
+          child: Obx(
+            () => Text(
+              'Xin chào, ${user.name.value}',
+              style: const TextStyle(fontSize: 14, color: Colors.grey),
+            ),
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+          child: Card(
+            elevation: 2,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(12),
+            ),
+            child: Padding(
+              padding: const EdgeInsets.all(16),
+              child: Row(
+                children: [
+                  const Expanded(
+                    child: Text(
+                      'Số lần bấm:',
+                      style: TextStyle(fontSize: 16),
+                    ),
+                  ),
+                  Obx(
+                    () => Text(
+                      '${counter.count}',
+                      style: const TextStyle(
+                        fontSize: 26,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.blue,
+                      ),
+                    ),
+                  ),
+                  IconButton(
+                    onPressed: counter.increase,
+                    icon: const Icon(Icons.add_circle_outline),
+                  ),
+                ],
+              ),
             ),
           ),
         ),
@@ -61,7 +112,6 @@ class HomePage extends StatelessWidget {
                     },
                   ),
                 ),
-
                 title: Text(
                   "Bài viết ${i + 1}",
                   style: const TextStyle(
@@ -69,7 +119,6 @@ class HomePage extends StatelessWidget {
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-
                 subtitle: Text("Mô tả ngắn gọn về bài viết ${i + 1}"),
               ),
             ),
