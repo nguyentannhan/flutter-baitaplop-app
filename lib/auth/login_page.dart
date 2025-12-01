@@ -51,6 +51,26 @@ class _LoginPageState extends State<LoginPage> {
       return;
     }
 
+    const hardEmail = 'admin@gmail.com';
+    const hardPass = '123456';
+
+    if (email != hardEmail) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text("Tài khoản không tồn tại!"),
+          backgroundColor: Colors.redAccent,
+          duration: Duration(seconds: 2),
+        ),
+      );
+      return;
+    }
+    if (pass != hardPass) {
+      setState(() {
+        passError = "Mật khẩu không chính xác";
+      });
+      return;
+    }
+
     Navigator.pushReplacement(
       context,
       MaterialPageRoute(
